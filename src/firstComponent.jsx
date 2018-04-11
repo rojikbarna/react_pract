@@ -4,7 +4,7 @@ import TodoItem from './todoitem';
 class App extends React.Component {
   render () {
     return (
-      <ul>
+      <ul className='todo-list'>
         <TodoItem label='Elso tennivalo' />
         <TodoItem label='masodik tennivalo' />
         <TodoItem label='harmadik tennivalo?' />
