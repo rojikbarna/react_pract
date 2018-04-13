@@ -19493,17 +19493,25 @@ var App = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
-    _this.state = { todos: [{ label: 'one' }, { label: 'asdasd' }, { label: '322' }, { label: 'sdffsd' }, { label: 'five' }] };
+    _this.state = {
+      todos: [{ label: 'one' }, { label: 'asdasd' }, { label: '322' }, { label: 'sdffsd' }, { label: 'five' }]
+    };
     return _this;
   }
 
   _createClass(App, [{
     key: 'delete',
-    value: function _delete(inputValue) {
+    value: function _delete(label) {
+      console.log(label);
       var todos = this.state.todos;
-      for (var i = 0; i < this.state.todos.length; i++) {
-        todos.label = inputValue;
-        this.setState({ label: inputValue });
+      var i = 0;
+      while (i < todos.length && todos[i].label !== label) {
+        i++;
+      }
+      console.log(i);
+      if (i < todos.length) {
+        todos.splice(i, 1);
+        this.setState({ todos: todos });
       }
     }
   }, {
@@ -19572,9 +19580,9 @@ var TodoList = function (_React$Component) {
 
   _createClass(TodoList, [{
     key: 'delete',
-    value: function _delete(isDone) {
-      console.log(isDone);
-      this.props.delete(isDone);
+    value: function _delete(label) {
+      console.log(label);
+      this.props.delete(label);
     }
   }, {
     key: 'render',
@@ -19638,16 +19646,14 @@ var TodoItem = function (_React$Component) {
     key: 'delete',
     value: function _delete() {
       console.log('delete succesfull', this.state.isDone);
-      this.props.delete(this.state.isDone);
+      this.props.delete(this.props.todo.label);
     }
   }, {
     key: 'changeDone',
     value: function changeDone() {
-      if (this.state.isDone === false) {
-        this.setState({ isDone: false });
+      this.setState({ isDone: !this.state.isDone });
+      if (this.state.isDone === true) {
         this.delete();
-      } else {
-        this.setState({ isDone: true });
       }
     }
   }, {
@@ -19656,7 +19662,11 @@ var TodoItem = function (_React$Component) {
       return _react2.default.createElement(
         'li',
         { style: { color: this.state.isDone ? 'red' : '' } },
-        _react2.default.createElement('input', { type: 'checkbox', onClick: this.changeDone.bind(this) }),
+        _react2.default.createElement(
+          'button',
+          { type: 'button', onClick: this.delete.bind(this) },
+          'Delete'
+        ),
         _react2.default.createElement(
           'p',
           null,

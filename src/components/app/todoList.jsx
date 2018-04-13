@@ -2,9 +2,9 @@ import React from 'react';
 import TodoItem from './todoList/todoItem';
 
 class TodoList extends React.Component {
-  delete (isDone) {
-    console.log(isDone);
-    this.props.delete(isDone);
+  delete (label) {
+    console.log(label);
+    this.props.delete(label);
   }
   render () {
     let todos = this.props.todos.map(todo => {

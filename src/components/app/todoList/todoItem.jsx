@@ -7,22 +7,20 @@ class TodoItem extends React.Component {
   }
   delete () {
     console.log('delete succesfull', this.state.isDone);
-    this.props.delete(this.state.isDone);
+    this.props.delete(this.props.todo.label);
   }
 
   changeDone () {
-    if (this.state.isDone === false) {
-      this.setState({ isDone: false });
+    this.setState({ isDone: !this.state.isDone });
+    if (this.state.isDone === true) {
       this.delete();
-    } else {
-      this.setState({ isDone: true });
     }
   }
 
   render () {
     return (
       <li style={{color: (this.state.isDone ? 'red' : '')}}>
-        <input type='checkbox' onClick={this.changeDone.bind(this)} />
+        <button type='button' onClick={this.delete.bind(this)}>Delete</button>
         <p>{this.props.todo.label}</p>
       </li>
     );
