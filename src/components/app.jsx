@@ -13,6 +13,13 @@ class App extends React.Component {
       { label: 'five' }
     ] };
   }
+  delete (inputValue) {
+    let todos = this.state.todos;
+    for (let i = 0; i < this.state.todos.length; i++) {
+      todos.label = inputValue;
+      this.setState({label: });
+    }
+  }
   submit (inputValue) {
     console.log(inputValue);
     let todos = this.state.todos;
@@ -23,7 +30,7 @@ class App extends React.Component {
     console.log(this.state);
     return (
       <div className='todoListWrapper'>
-        <TodoList todos={this.state.todos} />
+        <TodoList todos={this.state.todos} delete={this.delete.bind(this)} />
         <CreateItem submit={this.submit.bind(this)} />
       </div>
     );

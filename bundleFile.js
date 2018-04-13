@@ -19498,6 +19498,15 @@ var App = function (_React$Component) {
   }
 
   _createClass(App, [{
+    key: 'delete',
+    value: function _delete(inputValue) {
+      var todos = this.state.todos;
+      for (var i = 0; i < this.state.todos.length; i++) {
+        todos.label = inputValue;
+        this.setState({ label: inputValue });
+      }
+    }
+  }, {
     key: 'submit',
     value: function submit(inputValue) {
       console.log(inputValue);
@@ -19512,7 +19521,7 @@ var App = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         { className: 'todoListWrapper' },
-        _react2.default.createElement(_todoList2.default, { todos: this.state.todos }),
+        _react2.default.createElement(_todoList2.default, { todos: this.state.todos, 'delete': this.delete.bind(this) }),
         _react2.default.createElement(_CreateItem2.default, { submit: this.submit.bind(this) })
       );
     }
@@ -19562,10 +19571,18 @@ var TodoList = function (_React$Component) {
   }
 
   _createClass(TodoList, [{
+    key: 'delete',
+    value: function _delete(isDone) {
+      console.log(isDone);
+      this.props.delete(isDone);
+    }
+  }, {
     key: 'render',
     value: function render() {
-      var todos = this.props.todos.map(function (element) {
-        return _react2.default.createElement(_todoItem2.default, { label: element.label, key: element.label });
+      var _this2 = this;
+
+      var todos = this.props.todos.map(function (todo) {
+        return _react2.default.createElement(_todoItem2.default, { todo: todo, key: todo, 'delete': _this2.delete.bind(_this2) });
       });
       return _react2.default.createElement(
         'ul',
@@ -19618,18 +19635,33 @@ var TodoItem = function (_React$Component) {
   }
 
   _createClass(TodoItem, [{
+    key: 'delete',
+    value: function _delete() {
+      console.log('delete succesfull', this.state.isDone);
+      this.props.delete(this.state.isDone);
+    }
+  }, {
     key: 'changeDone',
     value: function changeDone() {
-      this.setState({ isDone: !this.state.isDone });
+      if (this.state.isDone === false) {
+        this.setState({ isDone: false });
+        this.delete();
+      } else {
+        this.setState({ isDone: true });
+      }
     }
   }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
         'li',
-        { onClick: this.changeDone.bind(this),
-          style: { color: this.state.isDone ? 'red' : '' } },
-        this.props.label
+        { style: { color: this.state.isDone ? 'red' : '' } },
+        _react2.default.createElement('input', { type: 'checkbox', onClick: this.changeDone.bind(this) }),
+        _react2.default.createElement(
+          'p',
+          null,
+          this.props.todo.label
+        )
       );
     }
   }]);
