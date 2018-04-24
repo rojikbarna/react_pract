@@ -10,6 +10,7 @@ class CreateItemForm extends React.Component {
   submit () {
     console.log('submit succesfull', this.state.inputValue);
     this.props.submit(this.state.inputValue);
+    this.setState({inputValue: ''});
   }
   changeInputValue (element) {
     this.setState({inputValue: element.target.value});
@@ -17,7 +18,7 @@ class CreateItemForm extends React.Component {
   render () {
     return (
       <form>
-        <input type='text' value={this.state.inputValue} onChange={this.changeInputValue.bind(this)} />
+        <input type='text' placeholder='type somthing here' value={this.state.inputValue} onChange={this.changeInputValue.bind(this)} />
         <button type='button' onClick={this.submit.bind(this)}>Click me</button>
         <br />
         {this.state.inputValue}

@@ -19790,6 +19790,7 @@ var CreateItemForm = function (_React$Component) {
     value: function submit() {
       console.log('submit succesfull', this.state.inputValue);
       this.props.submit(this.state.inputValue);
+      this.setState({ inputValue: '' });
     }
   }, {
     key: 'changeInputValue',
@@ -19802,7 +19803,7 @@ var CreateItemForm = function (_React$Component) {
       return _react2.default.createElement(
         'form',
         null,
-        _react2.default.createElement('input', { type: 'text', value: this.state.inputValue, onChange: this.changeInputValue.bind(this) }),
+        _react2.default.createElement('input', { type: 'text', placeholder: 'type somthing here', value: this.state.inputValue, onChange: this.changeInputValue.bind(this) }),
         _react2.default.createElement(
           'button',
           { type: 'button', onClick: this.submit.bind(this) },
